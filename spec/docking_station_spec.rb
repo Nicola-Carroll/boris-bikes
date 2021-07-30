@@ -5,8 +5,7 @@ describe DockingStation do
   it { is_expected.to respond_to :release_bike }
   
   it 'gets a working bike' do
-   bike = Bike.new #= subject.release_bike
-   subject.dock(bike)
+   subject.dock(Bike.new)
    expect(subject.release_bike).to be_working
   end
   
@@ -18,14 +17,14 @@ describe DockingStation do
   # we need to write a test that checks if the bike can be seen after its been docked
   it 'shows docked bikes' do
     bike = Bike.new
-    expect(subject.dock(bike)).to eq bike
+    expect(subject.dock(bike)).to eq [bike]
   end
   
-  it {expect {subject.release_bike}.to raise_error("This bike does not exist")}
+  it {expect {subject.release_bike}.to raise_error("There is no bike at this docking station")}
 
-  it 'can only dock one bike at a time' do
-    subject.dock(Bike.new)
-    expect { subject.dock(Bike.new) }.to raise_error("There is already a bike at this docking station")
+  it 'raises an error if docking station is full' do
+    20.times { subject.dock Bike.new }
+    expect { subject.dock(Bike.new) }.to raise_error("This docking station is full")
   end
 
 end
