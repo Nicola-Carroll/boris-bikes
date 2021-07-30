@@ -11,11 +11,8 @@ class DockingStation
   end
 
   def dock(bike)
-    # do something here so that "bike" shows up in the attribute bike
+    raise "There is already a bike at this docking station" if @bike
     @bike = bike
   end
 
-  # def bike
-  #   @bike
-  # end
 end

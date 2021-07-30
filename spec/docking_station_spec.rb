@@ -23,6 +23,11 @@ describe DockingStation do
   
   it {expect {subject.release_bike}.to raise_error("This bike does not exist")}
 
+  it 'can only dock one bike at a time' do
+    subject.dock(Bike.new)
+    expect { subject.dock(Bike.new) }.to raise_error("There is already a bike at this docking station")
+  end
+
 end
 
 
