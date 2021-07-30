@@ -34,6 +34,22 @@ describe DockingStation do
     expect(subject.release_bike).to be_working
   end
 
+  describe 'capacity' do
+    
+    it 'has a default capacity' do
+      expect(subject.capacity).to eq(DockingStation::DEFAULT_CAPACITY)
+    end
+
+    it 'has an assigned capacity' do
+      docking_station = DockingStation.new(30)
+      30.times { docking_station.dock Bike.new }
+      expect { docking_station.dock Bike.new }.to raise_error 'This docking station is full'
+    end
+
+
+  end
+
+
 end
 
 
